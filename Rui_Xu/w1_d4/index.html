@@ -1,8 +1,73 @@
 <!DOCTYPE html>
-<html>
-  <head></head>
-  <body>
-     
-     <script src="main.js"></script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Journey Planner</title>
+  <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body>
+  <div class="banner">
+      <img class="logo" src="css/Metro_logo.png">
+  </div>
+  <div class="span-3">
+    <nav>
+      <ul>
+        <div class="grp">
+          <li class="label">Traveling from</li>
+          <div class="dropdown" id="oriDrp">
+            <button class="dropbtn" id="origin">origin</button>
+            <!-- Lines to populate  -->
+            <!-- <div class="dropdown-content" id="oriDrp1">
+                <div class="lineDiv">Link 1</div>
+                <div class="subdrpdwn">
+                  <div class="stpDiv">stp 1</div>
+                  <div class="stpDiv">stp 2</div>
+                  <div class="stpDiv">stp 3</div>
+                  <div class="stpDiv">stp 4</div>
+                </div>
+            </div>
+            <div class="dropdown-content" id="oriDrp2">
+                <div class="lineDiv" id="2">Link 2</div>
+                <div class="subdrpdwn">
+                  <div class="stpDiv">stp 1</div>
+                  <div class="stpDiv">stp 2</div>
+                  <div class="stpDiv">stp 3</div>
+                  <div class="stpDiv">stp 4</div>
+                </div>
+           </div> -->
+          </div>
+          <li class="label">Traveling to</li>
+          <div class="dropdown" id="desDrp">
+            <button class="dropbtn" id="destin">destination</button>
+            <!-- <div class="dropdown-content" id="desDrp1">
+                <div class="lineDiv" id="3">Link 1</div>
+                <div class="subdrpdwn">
+                  <div class="stpDiv">stp 1</div>
+                  <div class="stpDiv">stp 2</div>
+                  <div class="stpDiv">stp 3</div>
+                  <div class="stpDiv">stp 4</div>
+                </div>
+            </div>
+            <div class="dropdown-content" id="desDrp2">
+                <div class="lineDiv" id="2">Link 2</div>
+                <div class="subdrpdwn">
+                  <div class="stpDiv">stp 1</div>
+                  <div class="stpDiv">stp 2</div>
+                  <div class="stpDiv">stp 3</div>
+                  <div class="stpDiv">stp 4</div>
+                </div>
+           </div> -->
+          </div>
+          <button class="gobtn">Plan Your Journey</button>
+        </div>
+      </ul>
+    </nav>
+  </div>
+  <div class="board"></div>
+  <script src="lib/underscore.js"></script>
+  <script src="lib/jquery-1.11.3.js"></script>
+  <script src="main.js"></script>
+</body>
 </html>

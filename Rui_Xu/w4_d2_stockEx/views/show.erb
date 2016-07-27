@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Show Stock</h1>
+  <ul>
+    <li>Ask: <%= @result[@stock].ask %></li>
+    <li>Daily Average: <%= @result[@stock].averageDailyVolume %></li>
+    <li>Bid: <%= @result[@stock].bid %></li>
+    <li>Change: <%= @result[@stock].change %></li>
+    <li>Change Percent: <%= @result[@stock].changePercent %></li>
+    <li>Change Points: <%= @result[@stock].changePoints %></li>
+    <li>Date: <%= @result[@stock].date %></li>
+    <li>Day High: <%= @result[@stock].dayHigh %></li>
+    <li>Day Low: <%= @result[@stock].dayLow %></li>
+    <li>Day Range: <%= @result[@stock].dayRange %></li>
+    <li>Last Trade: <%= @result[@stock].dayRange %></li>
+    <li>Laste Trade With Time: <%= @result[@stock].lastTradeWithTime %></li>
+    <li>Name: <%= @result[@stock].name %></li>
+    <li>Open: <%= @result[@stock].open %></li>
+    <li>Previous Close: <%= @result[@stock].previousClose %></li>
+    <li>Symbol: <%= @result[@stock].symbol %></li>
+    <li>Ticker Trend: <%= @result[@stock].tickerTrend %></li>
+    <li>Time: <%= @result[@stock].time %></li>
+    <li>Volume: <%= @result[@stock].volume %></li>
+  </ul>
+</body>
+</html>

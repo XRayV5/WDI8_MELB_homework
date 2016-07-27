@@ -26,12 +26,47 @@ var sandringham = ['Southern Cross', 'Richmond', 'South Yarra', 'Prahran', 'Wind
 
 var stationMap = {
     "Alamein" : ['Flinders Street', 'Richmond', 'East Richmond', 'Burnley', 'Hawthorn', 'Glenferrie'],
-    "Glen Waverly" : ['Flagstaff', 'Melbourne Central', 'Parliament', 'Richmond', 'Kooyong', 'Tooronga'],
+    "GlenWaverly" : ['Flagstaff', 'Melbourne Central', 'Parliament', 'Richmond', 'Kooyong', 'Tooronga'],
     "Sandringham" : ['Southern Cross', 'Richmond', 'South Yarra', 'Prahran', 'Windsor']
 };
 var intersection = 'Richmond';
+var btns = ["origin","destin"];
+/**Dropdown Menu Population**/
+function dropDownInit(str){
+  var drpDwns = $("#"+str);
+    for(var k in stationMap){
+      drpDwns.append("<div class='dropdown-content'><div class='lineDiv' name="+k+">"+k+"</div><div class='subdrpdwn'name="+k+"></div></div>");
+      var line = stationMap[k];
+      var stps = "";
+      for(var i=0;i<line.length;i++){
+        stps+="<div class='stpDiv' name="+str+">"+line[i]+"</div>";
+        }
+      $("#"+str+" .subdrpdwn[name="+k+"]").append(stps);
+    }
+}
+
+function addEvents(str1,str2){
+  $(".stpDiv[name="+str2+"]").on("click", function() {
+    $("#"+str1).text($(this).text());
+  });
+}
+
+dropDownInit("oriDrp");
+dropDownInit("desDrp");
+addEvents("origin","oriDrp");
+addEvents("destin","desDrp");
 
 
+
+
+$(".gobtn").on("click",function(){
+//console.log($(".dropbtn")[0].textContent);
+//console.log($(".dropbtn")[1].textContent);
+//$(".dropbtn")[1].textContent
+  var jpObj = journeyPlanner($(".dropbtn")[0].textContent,$(".dropbtn")[1].textContent,'Richmond');
+  metroChick(jpObj);
+});
+/**journeyPlanner implementation**/
 // SearchStation fucntion
 function searchStation(station){
   //search for a station and return which line it's on.
@@ -95,14 +130,11 @@ function journeyPlanner(origin,destination,intersection){
   }else{
     var tripA = singleJourney(origin,intersection,lineA);
     var tripB = singleJourney(intersection,destination,lineB);
-    console.log(tripA);
-    console.log(tripB);
+    console.log("A: "+tripA);
+    console.log("B: "+tripB);
     route = mergeTrip(tripA,tripB);
   }
     journey = {'trip_1':lineA,'trip_2':lineB,'trip_route':route};
-    //console.log(route);
-
-
   return journey;
 }
 
@@ -129,14 +161,18 @@ function metroChick(journeyPlan){
   if(journeyPlan['trip_1']===journeyPlan['trip_2']){
     console.log("You need to take "+journeyPlan['trip_1']+" line at "+getOn+" and get off at "+getOff+".");
     console.log("Stops: "+stopMap);
+    $(".board").append("<div>Stops: "+stopMap+"</div>");
+    $(".board").append("<div>You need to take "+journeyPlan['trip_1']+" line at "+getOn+" and get off at "+getOff+".</div>");
   }else{
     console.log("You need to take "+journeyPlan['trip_1']+" line at "+getOn+" and transfer to "+journeyPlan['trip_2']+" line at Richmond and get off at "+getOff+".");
     console.log("Stops: "+stopMap);
+    $(".board").append("<div>You need to take "+journeyPlan['trip_1']+" line at "+getOn+" and transfer to "+journeyPlan['trip_2']+" line at Richmond and get off at "+getOff+".</div>");
+    $(".board").append("<div>Stops: "+stopMap+"<div>");
   }
 }
 
-metroChick(journeyPlanner("Tooronga","Glenferrie","Richmond"));
-journeyPlanner("Tooronga","Glenferrie","Richmond");
+//metroChick(journeyPlanner("Tooronga","Glenferrie","Richmond"));
+console.log(journeyPlanner("Tooronga","Glenferrie","Richmond"));
 
 /*
 Test cases:
@@ -150,65 +186,65 @@ console.log(searchStation("East Richmond"));
 */
 
 
-
-//---------  Solution 2 ---------------
-var stationMapSplit = {
-  "Alamein" : ['Flinders Street', 'Richmond'],
-  "Richmond Alamein" : ['Richmond', 'East Richmond', 'Burnley', 'Hawthorn', 'Glenferrie'],
-  "Glen Waverly" : ['Flagstaff', 'Melbourne Central', 'Parliament', 'Richmond'],
-  "Richmond Glen Waverly" : ['Richmond','Kooyong', 'Tooronga'],
-  "Sandringham" : ['Southern Cross', 'Richmond'],
-  "Richmond Sandringham" : ['Richmond','South Yarra', 'Prahran', 'Windsor']
-};
-
-
-//func that will preprocess the existing
 //
-
-function cardisianStation(lineList){
-  var routeMap;
-  var baseArr;
-  var counter=0;
-  for(var k in lineList){
-    if(counter%2){
-      baseArr.push(lineList[k]);
-    }else{
-      baseArr.push(lineList[k].reverse());
-    }
-  }
-  return routeMap;
-}
-//singleJourney()  &  mergeTrip()
-function searchStation_(station){
-  //search for a station and return which line it's on.
-  var query = RegExp(station);
-  for(var k in stationMapSplit){
-      for(var i=0;i<stationMapSplit[k].length;i++){
-        var stp = stationMapSplit[k];
-        if(query.test(stp[i])){
-          var line = k;
-          //Flaw: The Great Richmond delima: when search Richmond, it will always
-          //return Sandringham, as it is in the last iteration...
-          //Have to mitigate it by if conditions: if(Richmond).
-        }
-      }
-  }
-  return line;
-}
-
-function singleJourney_(ori,des,line){
-  var stps = stationMapSplit[line];
-  var idxOri = stps.indexOf(ori);
-  //console.log(idxOri);
-  var idxDes = stps.indexOf(des);
-  //console.log(idxDes);
-  if(idxOri>idxDes){
-      var journey = (stps.slice(idxDes,idxOri+1)).reverse();
-  }else{
-      var journey = stps.slice(idxOri,idxDes+1);
-  }
-  return journey;
-}
-
-
-console.log(searchStation_('Kooyong'));
+// //---------  Solution 2 ---------------
+// var stationMapSplit = {
+//   "Alamein" : ['Flinders Street', 'Richmond'],
+//   "Richmond Alamein" : ['Richmond', 'East Richmond', 'Burnley', 'Hawthorn', 'Glenferrie'],
+//   "Glen Waverly" : ['Flagstaff', 'Melbourne Central', 'Parliament', 'Richmond'],
+//   "Richmond Glen Waverly" : ['Richmond','Kooyong', 'Tooronga'],
+//   "Sandringham" : ['Southern Cross', 'Richmond'],
+//   "Richmond Sandringham" : ['Richmond','South Yarra', 'Prahran', 'Windsor']
+// };
+//
+//
+// //func that will preprocess the existing
+// //
+//
+// function cardisianStation(lineList){
+//   var routeMap;
+//   var baseArr;
+//   var counter=0;
+//   for(var k in lineList){
+//     if(counter%2){
+//       baseArr.push(lineList[k]);
+//     }else{
+//       baseArr.push(lineList[k].reverse());
+//     }
+//   }
+//   return routeMap;
+// }
+// //singleJourney()  &  mergeTrip()
+// function searchStation_(station){
+//   //search for a station and return which line it's on.
+//   var query = RegExp(station);
+//   for(var k in stationMapSplit){
+//       for(var i=0;i<stationMapSplit[k].length;i++){
+//         var stp = stationMapSplit[k];
+//         if(query.test(stp[i])){
+//           var line = k;
+//           //Flaw: The Great Richmond delima: when search Richmond, it will always
+//           //return Sandringham, as it is in the last iteration...
+//           //Have to mitigate it by if conditions: if(Richmond).
+//         }
+//       }
+//   }
+//   return line;
+// }
+//
+// function singleJourney_(ori,des,line){
+//   var stps = stationMapSplit[line];
+//   var idxOri = stps.indexOf(ori);
+//   //console.log(idxOri);
+//   var idxDes = stps.indexOf(des);
+//   //console.log(idxDes);
+//   if(idxOri>idxDes){
+//       var journey = (stps.slice(idxDes,idxOri+1)).reverse();
+//   }else{
+//       var journey = stps.slice(idxOri,idxDes+1);
+//   }
+//   return journey;
+// }
+//
+//
+// console.log(searchStation_('Kooyong'));

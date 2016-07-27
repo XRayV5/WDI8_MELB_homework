@@ -1,0 +1,80 @@
+#00a4d8 blue1
+#006ca7 blue2
+#ffd500 yellow1
+#e41f1f red1
+#333333 grey1
+
+.btnElmt{
+  color:#eba700;
+  font-size: 1em;
+  border: none;
+  border-radius: 4px;
+  background-color: #b30738;
+  width:40%;
+  margin: auto 4%;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+}
+
+<!-- <div class="dropdown-content" id="oriDrp2">
+    <div class="lineDiv" id="3">Link ２</div>
+    <div class="subdrpdwn">
+      <div class="stpDiv">stp 1</div>
+      <div class="stpDiv">stp 2</div>
+      <div class="stpDiv">stp 3</div>
+      <div class="stpDiv">stp 4</div>
+    </div>
+</div>
+<div class="dropdown-content" id="oriDrp3">
+    <div class="lineDiv" id="3">Link 3</div>
+    <div class="subdrpdwn">
+      <div class="stpDiv">stp 1</div>
+      <div class="stpDiv">stp 2</div>
+      <div class="stpDiv">stp 3</div>
+      <div class="stpDiv">stp 4</div>
+    </div>
+</div> -->
+
+
+
+
+
+<div class="banner">
+  <div class="lgGrp">
+    <img class="logo" src="css/Metro_logo.png">
+    <div class="nameSticker">Journey Planner</div>
+  </div>
+  <img class="bannerImg" src="css/logo2.png" alt="">
+</div>
+
+
+.logo{
+  width:100%;
+}
+.lgGrp{
+
+  width: 15%;
+  float:left;
+  background-color: #006ca7;
+}
+.bannerImg{
+    width:85%;
+    display: block;
+      float:right;
+}
+.nameSticker{
+  background-color: #006ca7;
+  font-size: 1.4em;
+  padding-top: 0.4em;
+  padding-bottom: 0.64em;
+  color:#ffd500;
+}
+.MJB {
+  font-size:5em;
+
+}
+.banner{
+  width:100%;
+  background: #006ca7;
+}

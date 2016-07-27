@@ -24,14 +24,13 @@ var savingAccount = {
               savBalance=0;
               globalBalance-=withdraw;
               chkBalance=globalBalance;
-              return balanceErr;
+              return savingAccount.balanceErr;
             }
         }else if(accountFlg==="checking"){
           if(withdraw<=chkBalance){
             chkBalance-=withdraw;
             globalBalance-=withdraw;
           }else{
-            warning("checking",withdraw-chkBalance);
             chkBalance=0;
             globalBalance-=withdraw;
             savBalance=globalBalance;
@@ -44,7 +43,6 @@ var savingAccount = {
   },
   balanceErr : "Insufficient"
 }
-
 var globalBalance=1000.011;
 var savBalance=500.011;
 var chkBalance=500;
